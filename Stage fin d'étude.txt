@@ -1,0 +1,902 @@
+
+
+Stage fin d’étude
+2023
+
+Tuteur entrepriseTuteur EIGSIEtudiantKRICHEN WassimHUBERT SamuelLEBRET TanguyResponsable Vision RobotiqueTeam manager chez ALSTOMStagiaire02 35 81 94 5806 04 14 25 1006 95 43 52 52Wassim.krichen@actemium.comsamuel.hubert.01@gmail.comtanguy.lebret.23@eigsi.fr
+Table des matières
+0 – Remerciement	5
+1	– Introduction et présentation de l’entreprise	6
+1.1 – Le groupe Vinci Energies	6
+1.2 – Actemium France	7
+1.3 – Actemium Rouen Automation	8
+2 - Le besoin et objectifs du projet	10
+2.1 – Des objectifs pour Actemium	10
+2.2 – Le projet, l’existant	11
+2.3 - Concept du projet, Architecture de mon système	13
+2.4 - Cahier des charges fonctionnel et planning	15
+3	- Programmation de l’IHM	21
+3.1 - Choix du framework, et IDE	22
+3.2 - Architecture de l'IHM	24
+3.3 - Base de données, Journalisation.	27
+3.4 - Interface, modularités	28
+3.5 - Utilisation de l’IA pour la programmation	37
+4-	Intégration des éléments physiques	40
+4.1 – Le robot Epson C4 et son contrôleur	41
+4.2 – FlexiBowl.	45
+4.3 – Système de vision	46
+4.4 - Limite de ce système.	48
+5 – Vision industrielle	50
+5.1 – Concept généraux et Hand-Eye calibration	51
+5.2 – Les test de caméra industriel, Cognex et SICK	53
+5.3 – Développement, MVtec et Deep learning	57
+6 – Conclusion synthèse sur le projet	65
+6.1 – Ma valeur ajoutée, Coût de R&D	66
+6.2 – La suite du projet	68
+7 – Document de fin de rapport	71
+7.1 – Les annexes	71
+7.2 - La bibliographie	79
+7.3 - Le glossaire	79
+
+
+
+Table des figures :
+Figure 1: Vinci Energies	6
+Figure 2: CGE	6
+Figure 3: GTIE	6
+Figure 4: Logo Actemium de 2005	7
+Figure 5: Organigramme	8
+Figure 6: machine spécifique d'Actemium Rouen Automation	9
+Figure 7: schéma de principe	11
+Figure 8: bête à corne	11
+Figure 9: Diagramme pieuvre	12
+Figure 10 : Interface Insight Explorer - IHM	14
+Figure 11: Cahier des charges fonctionnel.	16
+Figure 12: Hiérarchisation des fonctions.	16
+Figure 13: RBS	17
+Figure 14: WBS	17
+Figure 15 Analyse fonctionnelle interne.	18
+Figure 16: Interface de Visual studio 2022	23
+Figure 17: différente architecture d'application.	24
+Figure 18: Structure de l'application.	26
+Figure 19 : Comprendre le Lay-out Bootstrap 5	29
+Figure 20: largeur > 992px (gauche) : largeur <=992px (droite).	29
+Figure 21: Page d'accueil.	30
+Figure 22: Liste des recettes.	30
+Figure 23: Page de connexion	31
+Figure 24: Configuration des machines.	31
+Figure 25: Visualisation de la base de données depuis SQL serveur 2014	33
+Figure 26: Utilisation des différents langages de programmation selon GitHub	33
+Figure 27: Principe basique de l'encapsulation.	34
+Figure 28: 3-way Handshake	35
+Figure 29: dépaquetage TCP.	35
+Figure 30: Connexion TCP en C#	36
+Figure 31: Logo HTML 5	36
+Figure 32: L'IA commente mon code	38
+Figure 33: différente IA qui révolutionne actuellement le monde des développeurs	39
+Figure 34: Architecture du système	40
+Figure 35: schéma robot Epson	41
+Figure 36: Interface du contrôleur robot.	42
+Figure 37: Gestionnaire de robot	42
+Figure 38: Risque de collision	43
+Figure 39: Communication mode connecté	44
+Figure 40: Flexibowl principe.	45
+Figure 41: Figure de vitesse générale.	46
+Figure 42: Principe de la segmentation.	47
+Figure 43: coût et part de chaque élément pour notre système.	48
+Figure 44: Temps en heures des phases d'implémentations	49
+Figure 45: Image pour illustrer le principe de distorsion oculaire de la lentille.	51
+Figure 46: Les paramètres de calibration.	51
+Figure 47 : interface Insight Explorer	53
+Figure 48 : Paramétrage du système depuis Insight et Calibration.	54
+Figure 49 : Calibration Ploc	55
+Figure 50 : Alignement du ploc	55
+Figure 51 : Enseignement des contours sur le Ploc.	56
+Figure 52: Labelling	57
+Figure 53: Entrainement du modèle.	58
+Figure 54: Validation.	58
+Figure 55 : Inférence sur Halcon	59
+Figure 56 : Front End Merlic	60
+Figure 57 : Interface de MERLIC (GUI)	61
+Figure 58: Coût de déploiement par caméra sur 1ans	67
+Figure 59: Programme de Hand-eye C#, (.NET Framework)	69
+Figure 60: Deep learning tool, résultats bruts en fct. du nombre d'image(1).	71
+Figure 61: deep learning résultats brut (2)	72
+Figure 62: précision en fonction du nombre d'image d'entrainement.	73
+Figure 63: Deep learning tool - Choix du seuil de détection.	73
+
+
+    0 – Remerciement
+
+Je tiens à exprimer ma profonde gratitude et mes sincères remerciements pour l'opportunité qui m'a été offerte de réaliser mon stage au sein de votre entreprise. Ce stage a été une expérience exceptionnelle pour moi, me permettant de me plonger dans le domaine passionnant de la programmation IHM, de la robotique et de la vision industrielle.
+
+Je tiens à remercier particulièrement mon tuteur, Monsieur Wassim KRICHEN, pour son encadrement précieux et son soutien constant tout au long de mon stage. Ses connaissances approfondies dans le domaine et sa passion pour le travail ont été une source d'inspiration pour moi. Sa patience et sa disponibilité ont grandement facilité mon apprentissage et m'ont permis de développer mes compétences techniques.
+Je suis également reconnaissant envers Monsieur Frédéric BOULVERT, la personne qui m'a accordé cette opportunité au sein de votre entreprise. Son expertise en vision industrielle et son engagement envers l'excellence ont été une source de motivation pour moi. J'ai eu la chance d'apprendre de lui et de bénéficier de ses conseils précieux.
+Je tiens également à remercier l'ensemble de l'équipe d'Actemium Rouen Automation pour son accueil chaleureux et sa collaboration. Leur environnement de travail convivial et professionnel a contribué à rendre mon stage enrichissant et agréable. J'ai eu la chance de travailler sur des projets intéressants, ce qui m'a permis de mettre en pratique mes compétences et d'acquérir de nouvelles connaissances.
+Enfin, je voudrais exprimer ma gratitude envers l'ensemble d’Actemium Rouen Automation pour avoir créé un cadre propice à l'apprentissage et au développement des stagiaires. Cette expérience m'a permis de consolider mes connaissances techniques, d'améliorer mes compétences professionnelles et de mieux comprendre le fonctionnement de l'industrie.
+Je suis convaincu que cette expérience sera un tremplin important pour ma carrière future.
+
+
+1 – Introduction et présentation de l’entreprise
+L’introduction est un des éléments les plus importants du rapport car elle replace l’étude dans son contexte, situe les enjeux du stage et les missions confiées en informant précisément le lecteur sur les questions traitées et sur les méthodes utilisées pour y répondre.
+En 1 à 2 pages, l’introduction délimite de façon claire et précise les différentes parties du rapport : le sujet du stage, la problématique, la démarche utilisée pour résoudre les problèmes posés ainsi que le plan synthétique du rapport.
+Il est préférable de rédiger l’introduction en dernier, lorsque l’on dispose du recul suffisant par rapport au travail
+
+1.1 – Le groupe Vinci Energies
+VINCI Energies est une filiale du groupe VINCI qui opère dans quatre domaines d'activité principaux : les infrastructures, l'industrie, les solutions de construction et les TIC??. L'entreprise compte environ 1 900 unités d'affaires qui rendent l'énergie, les transports et les infrastructures de communication, les usines, les bâtiments et les systèmes informatiques plus fiables, sûrs, durables et efficaces??.
+
+Le parcours de VINCI Energies a commencé en 1735 avec la création de Lepaute, une entreprise d'horlogerie qui a ensuite évolué vers l'électronique après la Seconde Guerre mondiale?. En 1898, la Compagnie Générale d’Électricité (CGE) a été créée, qui est devenue plus tard Cegelec?. En 1970, la création de GTIE a marqué un tournant majeur dans le marché de l'installation électrique, avec l'union de plusieurs entreprises pour former un groupe qui deviendrait GTIE en 1984. 
+
+En 1999, les marques Axians et Graniou ont été créées, suivies de Actemium, Citeos, Omexom et Opteor??. En 2000, la fusion de SGE et GTM a donné naissance au groupe VINCI, et GTIE a absorbé les unités d'affaires thermomécaniques du groupe??. En 2003, GTIE a pris le nom de VINCI Energies pour être reconnue comme une filiale de VINCI??.
+
+Actemium fait partie de VINCI Energies et se concentre sur le secteur de l'industrie. Le réseau Actemium a été créé en 1999 lorsque GTIE, tout en continuant à servir pleinement ses clients locaux, a également choisi une approche mondiale pour certaines de ses activités?. Un communiqué de presse sort en 2005 afin de dire qu’Actemium prend une nouvelle dimension et devient la marque de référence de VINCI Energies dans l’industrie.
+
+Figure 4: Logo Actemium de 2005
+   1.2 – Actemium France
+Actemium France est une marque d'ingénierie industrielle spécialisée dans l'automatisation et la transformation numérique. Elle fait partie du groupe Vinci Energies et propose des solutions personnalisées pour optimiser les processus industriels et améliorer la performance. 
+Avec plus de 100 implantations en France, Actemium offre un large éventail de compétences techniques, allant de l'électrotechnique à la robotique en passant par la vision industrielle. L'entreprise accompagne ses clients dans leur transition vers l'industrie du futur en proposant des services d'ingénierie, d'installation, de mise en service et de maintenance des systèmes. 
+Actemium France se distingue par son expertise technique, son innovation et son engagement à soutenir ses clients tout au long de leur transformation digitale.
+
+
+1.3 – Actemium Rouen Automation
+1.3.1 - Présentation de l'entreprise
+ACTEMIUM Rouen Automation est spécialisée dans la conception de machines spéciales et de système de distribution sur mesure. Ces machines peuvent être entièrement automatisées, semi-automatiques, ou des postes de travail manuels. Elles sont développées en fonction du cahier des charges du client, dans une recherche constante d'optimisation technique et économique.
+
+Figure 5: Organigramme
+L'entreprise, initialement dirigée par L. Pierucci est restée 4 mois sans chef d'entreprise. Durant cette période, c'est le directeur du périmètre (qui a plusieurs entreprises sous sa direction) qui a assuré l'intérim. Parallèlement, une décision stratégique a été prise de déménager dans de nouveaux locaux afin d'augmenter l'effectif, avec une projection de le doubler.
+Chaque entreprise d’Actemium, opèrent avec une certaine indépendance. L’objectif principal étant d'intégrer les compétences des petites entreprises, de les dynamiser en les unifiant et en exploitant leur réseau.
+En termes simples, c'est une stratégie économique mise en œuvre par Vinci Energies, qui adopte une approche de gestion plutôt passive. Avec son vaste réseau d'entreprises, Vinci Energies cherche à optimiser la productivité et l'efficacité, tout en respectant l'indépendance et l'unicité de chaque entité. Cette stratégie permet à Vinci Energies de rester agile et innovant, tout en tirant parti de la force de son réseau pour générer de la valeur.
+1.3.2 - Machines d'assemblage
+ Actemium Rouen Automation propose deux types de machines d'assemblage à plateau rotatif indexé et à cinématique continue. Les machines à plateau rotatif indexé ont une cadence pouvant atteindre 100 cycles par minute et assemblent jusqu'à 200 pièces par minute. Les machines à cinématique continue peuvent réaliser des processus complexes d'assemblage et de contrôle, avec une cadence allant jusqu'à 500 pièces/min.
+
+Figure 6: machine spécifique d'Actemium Rouen Automation
+1.3.3 - Systèmes de distribution
+Actemium Rouen Automation conçoit ses propres systèmes de distribution à moyenne et haute cadence. Ces systèmes assurent une distribution précise et fiable des composants, un élément crucial pour une automatisation efficace et économique des lignes d'assemblage.
+1.3.4 - Vision industrielle
+Actemium Rouen Automation intègre dans ses solutions d'automatisation des systèmes de vision industrielle. Ces systèmes permettent de mettre en place des contrôles automatiques de distribution et de production de pièces, en garantissant la précision, la répétabilité et la traçabilité du contrôle.
+1.3.5 - Robotique industrielle
+Actemium Rouen Automation intègre également des systèmes de robotique industrielle dans ses solutions. L'intégration de robots apporte plusieurs avantages compétitifs, tels que l'augmentation de la productivité, l'amélioration de la qualité du produit final, et la simplification de tâches pénibles pour les opérateurs.
+
+    2 - Le besoin et objectifs du projet
+Mon stage à pour but de travailler sur un projet que j’ai nommé par la suite FlexiArm.
+
+   2.1 – Des objectifs pour Actemium
+2.1.1- Les bénéfices pour Actemium Rouen
+Le projet porte sur le développement d’une solution de distribution flexible et on peut changer l’objet à distribuer relativement rapidement, environs une semaine, là où le changement d’objet sont long avec le solution actuelle, environs 2 mois.
+FlexiArm offre plusieurs avantages significatifs pour Actemium Rouen. D'une part, il permet de promouvoir et de vendre le produit FlexiBowl, dont Actemium Rouen est le distributeur.
+
+D'autre part, ce projet dynamise l'innovation au sein de l'entreprise, en particulier parce qu'il implique l'intégration de technologies qui sont nouvelles pour de nombreux employés. Par conséquent, il permet d'accroître les connaissances générales des employés sur ces technologies, en stimulant leur curiosité et leur intérêt pour l'innovation.
+
+De plus, FlexiArm crée des liens avec d'autres branches d'Actemium, On fait régulièrement des présentations sur les avancées des stages respectif. Enfin, ce projet offre une solution technique adaptée à un problème constaté dans l'entreprise : le manque de flexibilité.
+
+2.1.2 - Les bénéfices pour le club robotique
+Pour le club robotique, FlexiArm contribue à la réalisation de plusieurs objectifs. Il permet d'abord le développement de Coviba : Computer Vision By Actemium, le programme de pépinière organisé par M. Frédéric BOULVERT. De plus, il fait progresser les connaissances sur les nouvelles technologies émergentes, ce qui est l'un des principaux objectifs du club.
+Ce projet promeut également l'innovation au sein de la marque Actemium. Par son biais, les membres du club ont la possibilité de développer des solutions innovantes. 
+ 
+Enfin, FlexiArm permet d'actualiser les précédents états de l'art, en fournissant des informations mises à jour sur l'utilisation des technologies de pointe dans l'automatisation industrielle.
+
+     2.2 – Le projet, l’existant
+Actemium Rouen, consciente de l'évolution rapide du marché de la cosmétique, cherche à développer une solution de dévracage flexible, utilisant le FlexiBowl d'ARS et un robot Epson C4, pour répondre aux exigences de cette industrie dynamique.
+
+Figure 8: schéma de principe
+2.2.1 - L'Importance de la Flexibilité et Réduction du Time to Market
+L'objectif principal de ce projet est de réduire le délai de mise sur le marché (Time To Market) des nouveaux produits cosmétiques. Le marché cosmétique est caractérisé par des délais de sortie de nouveaux produits de plus en plus courts pour des sorties de plus en plus éphémères. Dans ce contexte, le FlexiBowl offre une flexibilité précieuse. Ce dispositif peut être paramétré pour s'adapter à de nouvelles pièces, ce qui est bien plus rapide que le recours à des solutions traditionnelles de distribution à base de bols vibrants, qui nécessitent des experts de plus en plus rares et prennent plusieurs mois à mettre en place. De plus, le robot Epson C4 peut être modifié pour accueillir différents préhenseurs, offrant une adaptabilité supplémentaire à la solution proposée.
+
+Figure 9: bête à corne
+
+Cela offrira aux clients la liberté de faire les ajustements nécessaires par eux-mêmes, sans devoir systématiquement passer par Actemium, ce qui devrait également réduire les temps d'assistance et de maintenance pour Actemium Rouen.
+
+Figure 10: Diagramme pieuvre
+2.2.2 - La proposition de valeur pour Actemium
+Le projet s'inscrit également dans une perspective à plus long terme pour Actemium France, qui cherche à renforcer sa compétence globale et à dynamiser l'innovation au sein de la marque. Plus spécifiquement, pour Actemium Rouen, l'objectif est triple :
+
+Promouvoir le produit « FlexiBowl », dont Actemium Rouen est le distributeur, ce qui devrait conduire à une augmentation des ventes.
+Dynamiser l'innovation dans une petite entreprise qui ne prend pas souvent de stagiaires, mais qui est désireuse de faire avancer la connaissance générale sur des technologies peu connues en interne.
+Créer des liens avec les autres entités Actemium, notamment par la présentation de l'avancement du projet lors de réunions mensuelles avec d'autres stagiaires.
+Ce projet permettra également de résoudre une problématique constatée : le manque de flexibilité. 
+
+
+
+
+2.2.3 - Le potentiel commercial du projet
+Au-delà de ces avantages directs, le projet offre également un potentiel commercial intéressant. Actemium envisage en effet de vendre un "Runtime", c'est-à-dire un coût par cycle que le client paierait pour l'application web. C'est une pratique courante pour les logiciels et cela pourrait se révéler très rentable pour Actemium. Cela permettrait non seulement de générer des revenus récurrents, mais aussi de réduire la charge de travail de l'équipe d'Actemium, tout en offrant aux clients plus de liberté et d'autonomie.
+
+Dans l'ensemble, le projet promet de créer une valeur ajoutée significative pour Actemium et ses clients, tout en favorisant la transmission des connaissances et l'innovation au sein de la marque.
+     2.3 - Concept du projet, Architecture de mon système
+2.3.1 - Configuration du système
+La solution de dévracage développée dans ce projet est destinée à optimiser le processus de distribution de pièces, en combinant une technologie innovante avec des méthodes traditionnelles. Les pièces sont d'abord déversées en vrac depuis une trémie sur la plaque rotative du FlexiBowl. Ce dispositif, grâce à sa capacité de secousse sophistiquée, sépare les pièces pour qu'elles soient plus faciles à traiter par le robot Epson qui les prend ensuite en charge. La plaque vibrante du FlexiBowl est dotée d'un rétroéclairage qui facilite l'identification et la localisation des pièces par la caméra industrielle 2D intégrée dans le robot Epson.
+
+2.3.2 - Interactivité utilisateur et contrôle du système
+Le contrôle du système est rendu convivial grâce à une interface web. Accessible via un réseau intranet, l'interface peut être utilisée sur un ordinateur, une tablette ou un téléphone, offrant une flexibilité et une accessibilité accrues à l'utilisateur. L'utilisateur peut sélectionner et modifier un ensemble prédéfini de paramètres - vitesse de rotation du FlexiBowl, trajectoire du robot, délai d'ouverture et de fermeture de la pince, et type de pièce à reconnaître par le système de vision. Pour assurer une gestion optimale du système, trois niveaux d'autorisations ont été mis en place : opérateur, maintenance et administrateur.
+
+Figure 11 : Interface Insight Explorer - IHM
+L’interface existante avec le projet est ci-dessus, jugé visuellement pas au niveau pour être commercialisé tel quel.
+
+2.3.3 - Rôle du contrôleur du robot et adaptabilité du système
+
+Au cœur du système, le contrôleur du robot Epson joue un rôle déterminant. En tant que maître du système, il coordonne la communication entre les composants du système, en utilisant le protocole UDP pour le FlexiBowl et un trigger filaire ou une commande TCP pour le système de vision. Cette centralisation des commandes assure une synchronisation optimale des différentes actions nécessaires à la distribution de pièces.
+
+Le système a été conçu pour être adaptable aux différentes tailles et formes de pièces, en modifiant les paramètres de mouvement du FlexiBowl et du robot ou en changeant de préhenseur si nécessaire. Tous les composants du système sont certifiés ISO pour une utilisation en environnement industriel, garantissant ainsi la robustesse et la fiabilité du système.
+En conclusion, la configuration du système, l'interactivité utilisateur et le rôle du contrôleur du robot sont trois aspects essentiels de l'architecture de ce système de dévracage. En combinant technologie innovante, flexibilité et adaptabilité, ce système offre une solution optimale pour améliorer l'efficacité et la performance du processus de distribution de pièces.
+
+
+     2.4 - Cahier des charges fonctionnel et planning
+2.4.1 - Cahier des charges fonctionnel
+Le système à développer doit remplir plusieurs fonctionnalités et contraintes clés qui sont les suivantes :
+
+Fonctions Principales :
+FP1 : Le système doit prendre des pièces en vrac et de les placer sur le convoyeur de sortie avec une cadence de 20 pièces par minute et un temps de cycle inférieur à 3 secondes.
+FP2 : Il doit permettre à l'utilisateur de changer les pièces à prendre avec le Flexi Arm en moins de 5 heures.
+
+Contraintes :
+FC1 : La prise de la pièce doit se faire sans la modifier et avec un effort maximal de 100 Newton.
+FC2 : Le système doit communiquer avec un serveur local ou en cloud avec un protocole sécurisé et un temps de cycle de sécurité inférieur à 20 ms.
+FC3 : Il doit être adapté au convoyeur d'entrée avec une hauteur de chute des pièces inférieure à 300 mm
+FC4 : Il doit résister aux conditions de fonctionnement extérieur : température de 18 degrés, humidité à 80%, blindage matériel suffisant contre le bruit électronique, et une luminosité ambiante inférieure à une certaine valeur en candéla.
+FC5 : Le système doit être ergonomique, être accepté dans un contexte industriel avec 80% d'avis favorables des testeurs.
+FC6 : Le système doit être contenu dans une structure qui l'isole des utilisateurs et répond aux normes de sécurité ISO 45001.
+FC7 : Le système doit être adapté au convoyeur de sortie avec une précision de dépôt de +/- 1 mm
+FC8 : L'utilisateur doit pouvoir paramétrer les données du Flexi Arm via une interface Web extensible, avec un temps de développement d'un module supplémentaire inférieur à une semaine. Voir en annexe les tableaux complet et descriptif de mon projet.
+
+Figure 12: Cahier des charges fonctionnel.
+
+
+Figure 13: Hiérarchisation des fonctions.
+
+
+2.4.2 - Ressources et diagrammes fonctionnels.
+On formule les macros tache de notre projet, afin de définir les ressources nécéssaire à alouer pour mon stage.  
+
+Figure 14: RBS
+
+Figure 15: WBS
+
+Figure 16 Analyse fonctionnelle interne. 
+Les contraintes du projet incluent un accès limité au matériel, avec le FlexiBowl et le robot Epson étant les seuls matériels fournis. Il n'y a pas de budget pour le prêt de matériel supplémentaire, ce qui signifie que tout matériel supplémentaire doit être obtenu gratuitement. 
+En termes de ressources humaines, la communication se fait à la fois en personne et via Teams et des réunions. Les contacts avec les fournisseurs se font via Teams, LinkedIn et e-mail. Pas de surcoût donc.
+
+
+2.4.2 - Planning
+La durée du projet est de 5 mois, répartie en plusieurs tâches clés comme suit :
+
+Figure 3 : Planning macroscopique
+1. Programmation Robot (durée : 20 jours)
+* Prise en main des commandes du robot Epson
+* Programmation d'un cycle type
+* Implémentation flexible de la partie contrôle robot
+
+2. Programmation IHM (durée : 80 jours)
+* Ossature de l'IHM définition de ses interactions avec les périphériques
+* Architecture fonctionnelle de L'IHM
+* Développement Web
+* Amélioration du Frontend
+* Déploiement sur prototype
+
+3. Programmation Vision (durée : 90 jours)
+* Établissement des spécifications nécessaires du système de vision
+* Configuration de l'optique
+* Programmation de l'algorithme de localisation de pièce
+* Établissement de la communication avec le reste du système
+
+4. Architecture Système (durée : 27 jours)
+* Architecture système macroscopique
+* Architecture système microscopique
+* Définitions des Entrées/Sorties
+
+
+5. Divers (durée : 70 jours)
+* Début et fin du stage
+* Rendez-Nous avec le tuteur EIGSI
+* État de l'art (Caméra, reconnaissance vision, architecture IHM)
+* Webinar stagiaire
+* Rédaction du rapport de stage
+* Soutenance
+Les détails du planning sont représentés dans le diagramme de Gantt fourni en annexes en fin de rapport.
+
+2.3.4 - Critères d'acceptation
+Le succès du projet sera mesuré en fonction de l'atteinte des objectifs fonctionnels et des contraintes, ainsi que de la satisfaction du client et de l'efficacité du système en conditions réelles.
+
+
+Figure 4 : AMDEC
+
+
+3 - Programmation de l’IHM
+
+L'un des principaux objectifs de mon stage était de répondre au besoin de programmation de l'interface homme-machine (IHM) web. Étant donné que je n'avais pas de connaissances préalables approfondies dans ce domaine, il m'a été difficile d'estimer avec précision les délais nécessaires pour mener à bien ce projet.
+Cependant, conscient de l'importance de cette tâche, j'ai immédiatement entrepris sa réalisation dès le début de mon stage. 
+Tout au long de cette période, j'ai consacré une attention particulière à comprendre les exigences spécifiques du projet et à acquérir les compétences nécessaires pour développer une IHM web fonctionnelle et conviviale. J’ai pu prendre du recul et formuler clairement la problématique à résoudre :
+
+"Comment sélectionner et utiliser efficacement un framework et un IDE adaptés pour développer une interface homme-machine (IHM) web industriels ? Quels sont les défis spécifiques et les contraintes liés à la conception de cette IHM dans un contexte industriel, notamment en termes d'architecture, d'intégration de base de données et de journalisation ? Comment optimiser la modularité de l'interface pour répondre aux exigences industrielles changeantes ? Enfin, quelle est la pertinence et le potentiel de l'intelligence artificielle pour simplifier et améliorer le processus de programmation dans ce contexte spécifique ?"
+
+SMART : Objectif atteint ?
+Je dois concevoir une IHM web en suivant les diverses documentations libres disponibles sur internet, contenant un maximum de 20 recettes, entre le 1er février et le 1er aout 2023, qui puissent être comprises par le client en 4 heures de formation. Une solution existe déjà avec l’environnement Cognex.
+
+     3.1 - Choix du framework, et IDE
+
+Pour développer une interface utilisateur web robuste et réactive pour notre système, plusieurs framework et environnements de programmation peuvent être envisagés. Ces choix dépendent des fonctionnalités requises, des compétences de l'équipe de développement, et des préférences pour certains langages ou outils. Voici quelques options :
+
+ReactJS : c'est un framework JavaScript populaire pour la construction d'interfaces utilisateur. Il est maintenu par Facebook et une communauté de développeurs individuels et d'entreprises. React permet de créer des composants réutilisables qui gèrent leur propre état, ce qui est particulièrement utile pour développer des applications web complexes.
+
+AngularJS/Angular : développé et maintenu par Google, Angular est un autre framework JavaScript puissant pour la construction d'applications web. Il est basé sur le concept de composants, tout comme React, mais il offre également une collection complète de fonctionnalités telles que la liaison de données bidirectionnelle (two-way data binding), l'injection de dépendances, et la gestion des formulaires.
+
+Vue.js : c'est un framework JavaScript progressif pour la construction d'interfaces utilisateur. Vue.js est conçu pour être facile à adopter et il peut être intégré à des projets existants, mais il est également capable de propulser des applications web sophistiquées.
+
+Python et Django/Flask : si je préféré travailler avec Python, Django et Flask sont deux framework web excellents. Django est un framework de haut niveau qui encourage le développement rapide et propre, tandis que Flask est plus minimaliste et donne plus de liberté au développeur.
+
+En ce qui concerne l'environnement de programmation, je pourrais considérer des environnements de développement intégrés (IDE) tels que Visual Studio Code, JetBrains WebStorm ou PyCharm, ou Atom, qui offrent tous des fonctionnalités utiles comme la coloration syntaxique, l'autocomplétions de code, et le débogage intégré.
+
+Pour notre système, je recommanderais d'utiliser ReactJS pour le framework de programmation, en raison de sa flexibilité, de sa capacité à créer des composants réutilisables, et de sa large adoption dans l'industrie, ce qui signifie qu'il y a beaucoup de ressources d'apprentissage et de soutien disponibles. En termes d'environnement de programmation, Visual Studio Code serait un bon choix car il offre une grande variété de plugins et d'intégrations qui peuvent faciliter le développement avec ReactJS.
+Mais un tout autre framework à été retenue pour mon stage pour des raisons de simplicité et de robustesse, le langage C#.
+
+Visual Studio : Visual Studio est un environnement de développement intégré (IDE) de Microsoft. Il propose une gamme complète d'outils de développement pour générer tout type d'application (web, mobile, desktop, jeux, IoT, etc.). Il offre également des fonctionnalités telles que la coloration syntaxique, l'autocomplétions de code, le débogage intégré, et de nombreuses extensions pour personnaliser l'environnement de développement en fonction des besoins spécifiques du projet.
+
+Figure 17: Interface de Visual studio 2022
+
+C# : langage de programmation orienté objet développé par Microsoft. Il est typé statiquement, ce qui signifie que les types de données de toutes les variables doivent être explicitement définis ou qu'ils sont déduits par le compilateur au moment de la compilation. Cela peut aider à réduire les erreurs de programmation. C# est largement utilisé pour développer des applications web et des services grâce au cadre ASP.NET.
+Ce langage a été retenue pour des raisons de standardisation des langages entre les stages et pour sa relative popularité qui le rend plus simple à apprendre en auto-formation.
+
+     3.2 - Architecture de l'IHM
+Le choix d'une architecture d'application est crucial pour l'organisation du code, sa maintenabilité, sa scalabilité, la réutilisabilité du code, la testabilité et la sécurité. Une architecture bien conçue facilite la compréhension et le développement de l'application, permet d'ajouter de nouvelles fonctionnalités, favorise la réutilisation du code, facilite les tests et renforce la sécurité de l'application.
+
+Figure 18: différente architecture d'application.
+3.2.1- Architecture Monolithique
+Dans une architecture monolithique, toutes les fonctionnalités du système sont intégrées dans une seule application logicielle. Les différentes composantes du système, telles que l'interface utilisateur, la logique métier, et la gestion des données, sont toutes interdépendantes et sont déployées en une seule unité. Cette architecture est simple à développer et à tester car tout est dans une seule codebase, mais elle peut devenir complexe à gérer et à faire évoluer à mesure que l'application grandit.
+3.2.2 - Architecture Microservices
+Dans une architecture microservices, chaque fonctionnalité du système est développée comme un service autonome qui fonctionne indépendamment des autres. Chaque microservice est déployé individuellement et communique avec les autres à travers des API. Cette architecture offre une grande flexibilité pour le développement et le déploiement, car chaque microservice peut être développé, testé, et déployé indépendamment des autres. Cependant, la coordination et la gestion des microservices peuvent être complexes.
+3.2.3 - Architecture MVC (Model-View-Controller)
+L'architecture MVC est un pattern de conception largement utilisé dans le développement de logiciels d'interface utilisateur. Dans ce modèle, l'application est divisée en trois composants principaux :
+Modèle (Model) : Représente les données et les règles métier. Il contient la logique de l'application qui traite les données et les interactions avec la base de données.
+
+Vue (View) : C'est la représentation visuelle des données, c'est-à-dire l'interface utilisateur.
+
+Contrôleur (Controller) : Il fait le lien entre le Modèle et la Vue. Il traite les entrées de l'utilisateur (souvent des actions sur la Vue) et met à jour le Modèle en conséquence.
+
+Pour notre système, l'architecture MVC est la plus appropriée pour plusieurs raisons. D'abord, elle sépare clairement la logique métier (Modèle), la présentation (Vue) et le contrôle (Contrôleur), ce qui rend le code plus lisible, maintenable et réutilisable. De plus, elle permet une meilleure gestion des droits d'accès des utilisateurs : chaque type d'utilisateur peut se voir attribuer une Vue spécifique avec les fonctionnalités correspondant à ses droits.
+
+Enfin, même si l'architecture microservices offre une plus grande flexibilité, elle nécessite une gestion et une coordination plus complexes, ce qui ne semble pas nécessaire pour la taille de notre projet. L'architecture monolithique, bien que plus simple, peut poser des problèmes de maintenabilité et d'évolutivité à mesure que l'application grandit.
+
+
+3.2.4 - Explications préliminaires, Program.cs 
+Voici concrètement comment est organisé mon application.
+
+
+On remarque donc la présence des trois couches Model, View et Controller de l’architecture MVC, alors évidemment, le choix d’une architecture n’impose pas non plus qu’il est impossible de crée d’autres document dans le programme. On retrouve les documents Migration, Areas ou encore logs, mais ils ne sont que des éléments annexes, des services qui sont spécifique à mon besoin. 
+
+
+     3.3 - Base de données, Journalisation.
+Pour développer l'interface utilisateur web de votre système, l’entreprise a opté pour le langage C# dans l'environnement de développement Visual Studio. C'est un choix solide pour plusieurs raisons :
+
+Serilog : Pour la gestion des logs, j’ai utilisé Serilog. Serilog est une bibliothèque de logging pour .NET qui est simple à utiliser, mais qui offre également de puissantes capacités de filtrage et de sortie. Avec Serilog, je peux écrire des logs directement dans plusieurs cibles (fichiers, consoles, services de logging, etc.), et il fournit également un moyen facile d'intégrer le logging dans ASP.NET.
+
+Entity Framework : Entity Framework est un ORM (Object-Relational Mapping) open-source développé par Microsoft qui permet de travailler avec des bases de données en utilisant des objets .NET. Il permet de générer automatiquement des classes qui correspondent à des tables de base de données et qui peuvent être utilisées pour effectuer des opérations CRUD sur la base de données.
+
+ASP.NET Core : ASP.NET Core est un framework gratuit et open-source pour le développement d'applications web modernes. Il est construit sur .NET Core, ce qui signifie qu'il peut être exécuté sur n'importe quelle plateforme (Windows, Linux, macOS) sans modification du code. ASP.NET Core prend en charge les modèles de développement MVC (Model-View-Controller) et API, ce qui facilite la création de pages web et de services web. 
+
+En résumé, nos choix pour le développement de l'interface utilisateur web semblent bien adaptés à votre système. Ils offrent une bonne combinaison de performances, de flexibilité et de robustesse, tout en nous permettant de profiter des avantages d'un environnement de développement complet et intégré comme Visual Studio.
+
+
+     3.4 - Interface, modularités
+L'interface utilisateur du système a été conçue pour faciliter une interaction simplifiée et efficace avec les utilisateurs. Elle est structurée en plusieurs pages principales, chacune ayant des fonctionnalités spécifiques.
+
+3.4.1 - Bootstrap pour un design réactif
+Pour assurer une expérience utilisateur optimale sur différents formats d'écran, le framework CSS Bootstrap est utilisé. Bootstrap facilite la conception d'interfaces réactives qui s'adaptent dynamiquement à la taille de l'écran de l'appareil, qu'il s'agisse d'un ordinateur de bureau, d'un ordinateur portable, d'une tablette ou d'un téléphone mobile. Cela rend l'interface utilisateur accessible et facile à utiliser quel que soit l'appareil utilisé.
+
+
+Figure 5 : principe de réactivité du site web avec Bootstrap.
+
+Figure 6 : Structure Html, utilisation de Bootstrap.
+Ici je montre un exemple de mon programme où j’utilise des classes Bootstrap, le fonctionnement utilise un système à grille statique. Ici on utilise un principe de colonne et ligne dynamique. Dépendamment de la tailler de l’écran :
+
+Figure 20 : Comprendre le Lay-out Bootstrap 5
+Le système de grille de Bootstrap permet d'avoir jusqu'à 12 colonnes sur la page. J’utilise la classe col-lg-4, avec col comme colonne, 4 qui signifie que mon élément prend un tier de l’espace de la page, le lg correspond à une taille large, cela veut dire qu’en dessous de 992px de large l’élément prend finalement toute la largeur de l’écran.
+
+Figure 21: largeur > 992px (gauche) : largeur <=992px (droite).
+
+Bootstrap fournit également de nombreux éléments faciles à manipuler. Pour les débutants, Bootstrap simplifie grandement les choses et facilite l'apprentissage. Cela m'a permis de trouver rapidement une structure, même si visuellement cela s'éloignait un peu de ce que je voulais initialement. En réalité, les développeurs web expérimentés utilisent rarement Bootstrap et préfèrent implémenter toutes les fonctionnalités visuelles CSS en écrivant directement le code eux-mêmes. On finit par comprendre que les éléments gérés par Bootstrap ne sont pas si difficiles à remplacer. 
+
+3.4.2 - Pages principales de l'interface
+La page d'accueil : Elle permet aux utilisateurs d'accéder aux fonctions essentielles telles que le démarrage du cycle, l'arrêt du cycle, la connexion, et le panneau de contrôle.
+
+
+Figure 23: Liste des recettes.
+La page de création de recettes : Elle donne la possibilité aux utilisateurs de créer et de modifier des recettes, c'est-à-dire des ensembles de paramètres correspondant à des pièces spécifiques du système.
+
+Figure 24: Page de connexion
+La page de connexion : Elle offre une fonction d'authentification par le biais d'un identifiant et d'un mot de passe. Cette fonctionnalité garantit que seuls les utilisateurs autorisés ont accès à l'interface et peuvent contrôler le système
+
+Figure 25: Configuration des machines.
+Les pages spécifiques (FlexiBowl, robot, système de vision) : Chacune de ces pages permet aux utilisateurs de réaliser des opérations de base sur le composant correspondant. Ces pages sont reliées à une base de données qui stocke les paramètres pour chaque élément, ce qui facilite l'interchangeabilité des éléments. Par exemple, si un FlexiBowl plus grand est nécessaire, il est facile de changer ses paramètres et d'ajouter un nouveau modèle de FlexiBowl avec ses paramètres de fonctionnement correspondants dans la base de données.
+On peut synthétiser cela avec une figure avec l’ensemble des vues IHM avec le niveau d’accessibilité :
+
+Figure 26: Ossature de l'IHM
+
+3.4.3 - Base de données
+Chaque page spécifique à un composant est reliée à une base de données qui stocke les paramètres pour chaque élément. Cela facilite l'interchangeabilité des éléments. Par exemple, si un FlexiBowl plus grand est nécessaire, il est facile de changer ses paramètres et d'ajouter un nouveau modèle de FlexiBowl avec ses paramètres de fonctionnement correspondants dans la base de données.
+
+Figure 27: Visualisation de la base de données depuis SQL serveur 2014
+3.4.4 - Langage Web utilisée
+L'interface est construite à l'aide de CSHTML, CSS, et JS. Les vues sont liées à des contrôleurs, et chaque vue nécessite un certain niveau de droits, qui sont déterminés par les rôles intégrés dans la base de données.
+
+
+Figure 28: Utilisation des différents langages de programmation selon GitHub
+
+3.4.5 - Communication
+Le protocole de contrôle de transmission (TCP, pour Transmission Control Protocol) est un protocole central de la suite des protocoles Internet qui assure la livraison fiable et ordonnée des données entre les systèmes sur un réseau IP. Il est classé comme un protocole orienté connexion car il établit une connexion virtuelle entre les hôtes avant l'échange de données.
+
+En termes techniques, le processus de communication TCP commence à la couche d'application où un utilisateur ou un système envoie un message ou exécute une commande. Les protocoles d'application formatent les données en un flux d'octets qui peut être géré par le protocole de couche de transport TCP ou UDP. Lorsque ces données atteignent la couche de transport, le processus d'encapsulation des données commence. En d'autres termes, la couche de transport encapsule les données d'application dans les unités de données du protocole de transport (segments pour TCP).
+
+Figure 29: Principe basique de l'encapsulation.
+Le protocole TCP scinde les données reçues de la couche d'application en segments et attache un en-tête à chaque segment. Cet en-tête contient les ports source et destination, des informations pour le séquençage des segments, et un champ de données représentant la somme de contrôle. Les protocoles TCP des deux hôtes utilisent ces données de somme de contrôle pour vérifier si le transfert s'est effectué correctement.
+
+Le protocole TCP utilise aussi un processus appelé "négociation en trois étapes" pour établir une connexion. Dans ce processus, l'hôte source envoie un segment SYN au protocole TCP de l'hôte récepteur. L'hôte récepteur renvoie un segment ACK pour accuser réception du segment SYN, et enfin, l'hôte source envoie un autre segment ACK pour initialiser l'envoi des données.
+
+Figure 30: 3-way Handshake
+Une fois les segments prêts, ils sont transmis à la couche Internet inférieure où le protocole IP les prépare pour la distribution en les formatant en datagrammes IP. Le protocole IP joint un en-tête IP à l'en-tête du segment, contenant les adresses IP des hôtes source et récepteur, la longueur du datagramme, et le numéro de séquence du datagramme.
+
+Enfin, les protocoles de la couche de liaison de données formatent le datagramme IP en un cadre, ajoutant un autre en-tête et une fin de cadre, avant d'envoyer le cadre à la couche physique. La couche réseau physique convertit alors les adresses IP en adresses matérielles appropriées pour le média réseau, et envoie le cadre à travers le média réseau.
+
+À l'arrivée du paquet sur l'hôte récepteur, le processus se déroule en sens inverse, avec chaque couche retirant les informations d'en-tête jointes par son homologue sur l'hôte source. Cela se poursuit jusqu'à ce que le message atteigne la couche d'application sur l'hôte récepteur, où l'opération requise par l'hôte source est ensuite effectuée.
+
+Figure 31: dépaquetage TCP.
+
+Figure 32: Connexion TCP en C#
+L'interface communique avec les autres éléments du système via des protocoles de communication standard, en utilisant des sockets. J’utilise les classes Tcp_client/Tcp_serveur, cela me permet d’utiliser des méthodes pour l’envoie de données. 
+
+3.4.6 - Compatibilité du navigateur
+Pour l'instant, l'interface a été optimisée pour Chrome. D'autres navigateurs n'ont pas fait l'objet d'une optimisation spécifique, ce qui peut faire l'objet de travaux futurs pour améliorer la compatibilité du navigateur. Mais de toute manière j’utilise HTML5. Or Le HTML5 est compatible avec tous les navigateurs web.
+
+Figure 33: Logo HTML 5
+     3.5 - Utilisation de l’IA pour la programmation
+L'intelligence artificielle (IA) s'est révélée être un outil puissant pour aider à la programmation et à l'amélioration des compétences. Dans le contexte de ce projet, l'utilisation de l'IA a permis d'accélérer le développement, d'améliorer la qualité du code et de faciliter l'apprentissage de nouvelles compétences en programmation.
+
+3.5.1 - Accélération du développement
+L'utilisation d'outils d'IA pour la programmation a permis d'accélérer le développement en fournissant des suggestions de code en temps réel. Ces outils, parfois appelés "copilotes de code", utilisent l'apprentissage automatique pour prédire ce que l'utilisateur pourrait vouloir écrire ensuite, ce qui peut aider à écrire du code plus rapidement et avec moins d'erreurs. Cela a été particulièrement utile dans le développement de l'interface utilisateur et des parties du système nécessitant une logique de programmation complexe.
+
+J’ai intégré la journalisation et les logging grâce à l’IA, je me devais d’intégrer cette fonction pour respecter la certification : ISO 27001 - Exigences et commentaires.
+
+A.8.15JournalisationGénérer, conserver, protéger et analyser des journaux des activités, exceptions, pannes et autres événements pertinents
+Il a été suggéré que je pourrais intégrer la fonction de journalisation à la fin de mon stage ou la reporter pour un futur stage. Cependant, il a été fortement recommandé que je l'intègre dès le début de ma programmation. Sans cela, je pourrais rencontrer des difficultés à l'implémenter ultérieurement.
+
+J'ai passé une semaine entière à essayer de faire fonctionner le système de journalisation, sans obtenir de résultats qui me satisfaisaient. Grâce à l'IA, à des extraits de mon code et à une bonne formulation de mes besoins, j'ai réussi à mettre en place une journalisation efficace en seulement un jour. J'ai passé un autre jour à l'intégrer directement dans l'application, sans avoir à fouiller dans le fichier serveur. C'est une véritable révolution dans le domaine de la programmation.
+
+3.5.2 - Amélioration de la qualité du code
+L'IA peut également aider à améliorer la qualité du code. Certains outils d'IA sont capables d'analyser le code et de signaler des problèmes potentiels, tels que des bugs, des vulnérabilités de sécurité ou des violations de conventions de codage. En utilisant ces outils, il a été possible de maintenir un haut niveau de qualité de code tout au long du projet.
+
+Figure 34: L'IA commente mon code
+Une autre application possible et la génération de commentaire dans le code. C’est une tâche qui prend beaucoup de temps pour le codeur et cela peut lui faire gagner un bon nombre d’heures.
+
+
+
+3.6.3 - Apprentissage et montée en compétence
+Enfin, l'IA peut être un outil précieux pour l'apprentissage et l'amélioration des compétences en programmation. En observant les suggestions fournies par l'IA, il est possible d'apprendre de nouvelles techniques de programmation, de comprendre de meilleures pratiques et de se familiariser avec des parties du langage de programmation que l'on n'a pas encore explorées. Dans le cadre de ce projet, l'utilisation de l'IA a aidé à améliorer la compréhension de divers aspects de la programmation, tels que la gestion des bases de données, le développement d'interfaces utilisateur et la programmation orientée objet.
+
+En somme, l'utilisation de l'IA dans le processus de programmation a apporté de nombreux bénéfices et a facilité la réalisation du projet. Il est important de noter cependant que l'IA est un outil d'assistance et non un remplaçant pour la connaissance et l'expertise en programmation. La maîtrise des concepts fondamentaux de la programmation et une compréhension approfondie du problème à résoudre restent essentielles pour le succès du développement de logiciels. J’ai dû de nombreuse fois revenir sur le forum « Stackoverflow » pour résoudre des problèmes que l’IA n’a pas pu résoudre pour moi. 
+
+Figure 35: différente IA qui révolutionne actuellement le monde des développeurs
+
+
+4-  Intégration des éléments physiques
+Si ma formation à un but, c’est bien d’améliorer ma capacité d’analyse macroscopique des systèmes industriel pour une conception plus cohérente. C’est en tout cas la définition de la mécatronique de monsieur Denis Philippe en tant que directeur de dominante. Le but de cette partie et de répondre à la problématique suivante : 
+
+      "Comment optimiser l'intégration des éléments physiques, spécifiquement le robot Epson C4, son contrôleur, le système FlexiBowl, et le système de vision dans une chaîne de production ? Quels sont les enjeux liés à ces composants individuellement et en interaction, et quelles sont leurs limites potentielles qui peuvent affecter les performances globales du système ? Comment ces limites peuvent-elles être adressées pour assurer l'efficacité de l'ensemble du système ?"
+
+SMART : Objectif atteint ?
+Je dois adapter le programme robot pour mon système de flexi arm, en suivant la documentation Epson C4 et aidé de Wassim si besoin, pouvant attraper une pièce relativement simple de la taille de 2 cm environ, entre le 1er février et le 1er aout 2023. Le bras est maitre du système de vision et du FlexiBowl. Une solution a déjà été éprouvée en interne de ICM. 
+
+Figure 36: Architecture du système
+     4.1 – Le robot Epson C4 et son contrôleur
+Dans le cadre de ce projet, nous avons intégré le robot Epson C4. Ce robot à six axes est apprécié pour sa précision, sa rapidité, et la diversité de ses mouvements.
+
+4.1.1 - Caractéristiques techniques du robot Epson C4
+
+Le robot Epson C4 a une capacité de charge utile de 4 kg. Il offre un temps de cycle rapide de 0,37 secondes. En moyenne, ses 6 articulations sont 32,4% plus rapides que les modèles concurrents équivalents dans sa catégorie. Sa précision de répétabilité est de +/-0.020mm, permettant une manipulation précise des pièces.
+
+Figure 37: schéma robot Epson
+4.1.2 - Logiciel de développement Epson RC+®
+Epson RC+ est un logiciel d'automatisation de robotique avancé, conçu pour une utilisation fluide avec tous les robots de haute performance d'Epson. Il permet une mise en route rapide grâce à une variété de fonctionnalités clés :
+Gain de temps de développement : En réduisant le temps nécessaire pour la mise en place, le logiciel permet une mise en œuvre plus rapide, économisant ainsi du temps et de l'argent.
+
+Figure 38: Interface du contrôleur robot.
+Simulateur 3D intégré : Cette fonctionnalité permet de vérifier et de visualiser l'exécution des mouvements et les temps de cycle avant la mise en œuvre réelle.
+Prêt à tout moment : Il permet de travailler hors ligne. Néanmoins il faut quand même travailler sur le Contrôleur robot pour récupérer les programmes.
+Le logiciel RC+ d'Epson intègre le puissant langage de programmation SPEL+, un simulateur 3D et d'autres options intégrées telles que le guidage par vision, l'alimentation en pièces, le guidage par force, le suivi de convoyeur, etc. Ces fonctionnalités facilitent la mise en place des applications d'automatisation.
+
+Figure 39: Gestionnaire de robot
+La position actuelle affiche les coordonnées du tool (ici le tool3) par rapport à la base robot. On peut ainsi contrôler le robot articulation par articulation, vis-à-vis de ses coordonnée monde ou bien celle du tool.
+La suite logicielle RC+ d'Epson est fournie avec l'achat du robot, sans frais de licence récurrents, ce qui peut représenter des économies significatives par rapport à d'autres fabricants.
+
+4.1.3 - Intégration du robot Epson C4
+Dans un environnement diversifié englobant l'agroalimentaire, la cosmétique, la pharmacie et la fabrication, le robot Epson C4 se doit de respecter les normes en place. Sa fonction principale consiste à prendre diverses pièces et à les positionner sur des postes d'assemblage ou de fabrication pour contrôle ou traitement ultérieur.
+
+La présence d'éléments tels que le Flexibowl dans l'espace de travail nécessite des mesures de sécurité spécifiques. Afin de prévenir tout incident ou collision, des zones inaccessibles sont configurées dans le contrôleur du robot. Si cela n’est pas fais une sécurité est présente dans le robot qui détecte les augmentations de couple importante et coupe le moteur au contact. Il est certifié qu’un contact n’est pas létal. Néanmoins comprenez par là qu’un contact peu tout de même blesser l’utilisateur.
+
+Pour maintenir un flux de production ininterrompu, le robot Epson C4 est conçu pour fonctionner de manière continue, tout en respectant ses spécifications techniques.
+La communication TCP avec le robot Epson C4 n'est pas immédiatement accessible par des fonctions prédéfinies. L'ouverture de sockets est requise pour établir cette communication. Cela permet une communication directe et efficace avec le robot.
+Le système permet également l'exécution simultanée de plusieurs programmes. Par exemple, l'interface homme-machine (IHM) peut fonctionner en parallèle avec l'écoute du Flexibowl et du système de vision. La capacité à programmer en utilisant les fonctions synchrones nous permet de gagner du temps de cycle, c’est d’autant plus important car le contrôleur robot est maitre et peu recevoir plusieurs informations de différent élément du système en même temps (IHM, Vision …).
+
+4.1.4 – Communication avec le robot.
+Le système reçoit fréquemment des informations sous forme de chaînes de caractères (256 caractère maximum). Ces chaînes sont ensuite segmentées selon des critères spécifiques, permettant un décodage des messages basé sur des règles internes. Ainsi, les informations peuvent être transmises simplement sous forme de chaînes de caractères, facilitant la communication et l'interprétation des données. 
+
+Un aspect que je n'ai pas précisé dans le contexte de l'application est que l'élément destinataire du message, la chaîne de caractères en l'occurrence, doit être en mesure de comprendre la clé de ce qui lui est envoyé. Lorsqu'il s'agit d'une solution programmée de A à Z, il incombe à nous, en tant qu'intégrateurs, de formater l'envoi et la réception de manière que le message soit correctement interprété. Il existe différentes méthodes pour y parvenir, mais voici ma façon de procéder :
+* On concatène les éléments séparés par des points-virgules (;) 
+* Fragmentation du message à son arrivée avec la clef (;). 
+* Bouclage pour assigner chaque élément de l'indice aux variables prévues pour les récupérer.
+
+     4.2 – FlexiBowl.
+4.2.1 - Composante de ce système :
+Cadre : Il s'agit de la structure de base du FlexiBowl.
+Disque rotatif : Cette composante pivote pour déplacer les pièces. Il est entraîné par un moteur à l'intérieur du cadre.
+Surface de glissement : Elle soutient le disque rotatif et dispose d'une fenêtre en Lexan pour le rétroéclairage.
+Unité de retournement : Elle fait sauter les pièces sur le disque rotatif pour faciliter leur manipulation.
+Bouclier de retournement : Il empêche les pièces d'être éjectées du FlexiBowl lors du retournement.
+Moteur avec Drivers : Il entraîne le disque rotatif.
+Couvercle : Il protège l'utilisateur de l'exposition inutile à la tension électrique et aux composants mobiles.
+Rétroéclairage : Il éclaire le disque rotatif pour rendre le profil des composants visible au système de vision.
+Le FlexiBowl est contrôlé via une interface utilisateur qui permet de paramétrer les différentes commandes de mouvement et d'option du système. Mais on peut ne pas passer par leur interface et faire sa propre interface pour avoir le contrôle sur l’IHM.
+
+
+Figure 42: Flexibowl principe.
+
+4.2.2 - Commandes de Mouvement
+Elles incluent des mouvements simples (Move) et des mouvements de secousse (Shake). Chaque commande peut être personnalisée en termes d'accélération, de décélération, de vitesse et d'angle. De plus, les commandes Shake peuvent être configurées pour se déplacer dans le sens horaire et antihoraire pour un nombre précis de fois (Count).
+Commandes d'Option : Elles permettent de personnaliser les cycles de retournement (Flip), le temps de soufflage (Blow), le rétroéclairage (Light), et d'activer ou désactiver les entrées/sorties numériques (Enable Digital I/O).
+
+Pour notre système, on peut configurer la vitesse de rotation et les valeurs d’accélération et de décélération. Ces valeurs sont ajustables au besoin mais sont limité par la motorisation du FlexiBowl. Ainsi l’accélération comme la décélération n’est pas infinie.
+
+Figure 43: Figure de vitesse générale.
+Il y a deux catégories de mouvements bien différenciées : les mouvements de déplacement, qui requièrent une accélération limitée et une vitesse modérée, et les mouvements de séparation, qui visent à maximiser l'accélération sans nécessiter une vitesse élevée (ceci permet de provoquer la perte d'adhérence des pièces). Lorsque le plateau du FlexiBowl est segmenté, cela permet d'effectuer à la fois des mouvements rotatifs et des mouvements de séparation.
+
+     4.3 – Système de vision
+Le système de vision est une composante vitale de votre configuration pour assurer la manipulation appropriée des pièces par le FlexiBowl. Dans votre cas spécifique, un système de vision 2D doté d'intelligence artificielle (IA) est utilisé, avec la possibilité d'intégrer une approche basée sur l'apprentissage profond ou une détection de contours (Edge learning).
+
+4.3.1 – Vision 2D et techniques de traitement d'images
+Le système de vision 2D, incorporant une caméra et un logiciel d'analyse d'images, capture des images du disque rotatif du FlexiBowl et des pièces qui y sont présentes. Ces images sont traitées en temps réel pour identifier et localiser chaque pièce.
+Pour cela, deux techniques principales sont envisagées :
+
+Détection de contours : Cette technique classique de traitement d'images est utilisée pour identifier les limites des pièces sur le disque rotatif. Elle est particulièrement efficace pour détecter les formes simples et distinctes, permettant une localisation précise de chaque pièce. C’est la solution par défaut pour le Pick’n Place.
+
+Figure 44: Principe de la segmentation.
+
+Deep Learning : Cette approche utilise des réseaux de neurones profonds pour apprendre à partir de jeux de données d'images étiquetées, permettant au système de reconnaître une variété de pièces de différentes formes et tailles. Grâce à son caractère évolutif, le système peut continuellement améliorer sa performance et sa précision avec le temps en traitant de nouvelles données.
+
+
+4.3.2 – Interface avec le contrôleur robot
+Le système de vision communique les informations de localisation des pièces, y compris les coordonnées X et Y, ainsi que l'angle de rotation ?, au contrôleur du robot. Ce dernier utilise ces informations pour diriger le robot vers une saisie précise et une manipulation correcte des pièces.
+
+4.3.3 – Réglage et Rétroéclairage
+Le système de vision contrôle le rétroéclairage du FlexiBowl, améliorant ainsi la visibilité et la qualité des images capturées. En outre, l'interface utilisateur permet de personnaliser et d'ajuster les paramètres de la caméra et du rétroéclairage afin d'optimiser les performances du système de vision selon les besoins spécifiques.
+
+     4.4 - Limite de ce système.
+Bien que le système FlexiBowl avec vision 2D et intelligence artificielle présente des avantages significatifs pour la manipulation des pièces, il y a plusieurs facteurs qui pourraient limiter ses performances.
+
+4.4.1 - Temps de cycle
+Le temps de cycle, qui est la durée totale nécessaire pour compléter une séquence de travail, peut être affecté par plusieurs facteurs. Les principales limites sont généralement liées à la vitesse du FlexiBowl et à la rapidité du robot pour identifier, saisir et déplacer les pièces. Si le robot est lent ou si le FlexiBowl prend du temps pour séparer correctement les pièces, cela peut entraîner des retards importants. De plus, les algorithmes d'apprentissage en profondeur ou de détection des contours peuvent nécessiter un certain temps pour traiter les images, ce qui peut également influencer le temps de cycle. J’ai remarqué que la motion est le facteur le plus long dans un cycle.
+
+4.4.2 - Coût
+En termes d'estimation budgétaire, un système de manipulation automatisé complet comme celui-ci pourrait coûter entre 50 000 et 150 000 €, voire plus, selon la complexité de la configuration, le type de robot utilisé, la sophistication du système de vision et la quantité de pièces à manipuler. Voici ce que j’ai pu estimer selon les différentes demandes de prix lors de mon stage :
+
+Figure 45: coût et part de chaque élément pour notre système.
+Aurore, notre responsable d’affaire avait estimé un coût brut de 130 000 €.
+L'investissement dans un système FlexiBowl avec vision 2D et IA peut être considérable. Les composants tels que la caméra haute résolution, le logiciel de traitement d'images, les algorithmes de machine learning et le matériel associé (par exemple, le processeur graphique pour le Deep Learning) peuvent être coûteux. De plus, il y a des coûts supplémentaires associés à l'installation, à la maintenance et à la formation du personnel pour utiliser correctement le système.
+
+4.4.3 - Maintenance et support
+Le maintien d'un système automatisé comme le FlexiBowl nécessite une maintenance régulière et un support technique compétent. Des problèmes techniques imprévus peuvent survenir, nécessitant une résolution rapide pour minimiser les temps d'arrêt. Il faut également prévoir une formation adéquate pour le personnel afin qu'ils puissent utiliser efficacement le système et résoudre les problèmes courants.
+
+4.4.4 - Adaptabilité
+Bien que le FlexiBowl soit conçu pour manipuler une variété de pièces, il peut rencontrer des difficultés avec certaines formes complexes, matériaux délicats ou pièces de très petite taille. De plus, la performance de la vision par IA dépend largement de la qualité des données d'entraînement. Il peut donc nécessiter une période d'apprentissage pour traiter efficacement de nouveaux types de pièces.
+J’ai fait un graphique du temps de chaque phase lors de l’implémentation d’une nouvelle recette. Cet temps sont basé sur mes temps personnelle lors de l’implémentation de ces éléments.
+
+Figure 46: Temps en heures des phases d'implémentations
+    5 – Vision industrielle
+La vision industrielle est une discipline technologique clé qui permet aux machines de "voir" et d'interpréter leur environnement. 
+Cette capacité est essentielle pour la manipulation automatisée des pièces, car elle permet à un système, comme le FlexiBowl, de localiser et de classer les pièces avant leur manipulation. 
+Dans cette section, nous discuterons de divers aspects de la vision industrielle tels que les concepts généraux, les tests de caméras industrielles, les systèmes tels que Cognex et SICK, ainsi que le développement et l'application de l'apprentissage profond dans la vision industrielle. Ainsi, j’ai formulé la problématique : 
+
+"Comment intégrer une solution de vision par ordinateur, comme celle de MVtec, dans le cadre d'une production industrielle tout en maîtrisant les coûts ? Quels défis peuvent être rencontrés au niveau de l'implantation technique, de la compatibilité avec les systèmes existants, et de la formation des utilisateurs, en particulier en comparaison avec d'autres solutions plus traditionnelles comme celle de Cognex ?"
+
+SMART : Objectif atteint ?
+Je dois concevoir le système de vision du flexi arm en suivant les diverses documentations des fournisseurs de Framework ou des bibliothèques libres, pouvant reconnaitre et localiser une pièce donnée en moins de 200 ms, entre le 1er février et le 1er aout 2023. Cette solution est esclave du bras robot. Une solution existe déjà avec l’environnement Cognex. 
+
+     5.1 – Concept généraux et Hand-Eye calibration
+Voici quelque concept à bien comprendre avant de faire de la vision industrielle.
+5.1.1 - Concept généraux
+Distorsion : La distorsion est une déformation de l'image provoquée par l'objectif de la caméra. Il existe deux types principaux de distorsion : la distorsion en barillet et la distorsion en coussin. La distorsion en barillet donne à l'image une apparence gonflée, comme si elle était vue à travers une sphère, tandis que la distorsion en coussin donne à l'image une apparence pincée, comme si elle était vue à travers un coussin. La distorsion peut être corrigée à l'aide de techniques de traitement d'image.
+
+Figure 47: Image pour illustrer le principe de distorsion oculaire de la lentille.
+Calibration de lentille : La calibration de la lentille est une étape essentielle dans la configuration d'un système de vision industrielle. Cela comprend le réglage de la mise au point et du diaphragme pour obtenir une image claire et nette. L'objectif doit être sélectionné en fonction de la taille de l'objet à inspecter et de la distance entre la caméra et l'objet.
+
+Figure 48: Les paramètres de calibration.
+Éclairage : L'éclairage est un facteur crucial pour obtenir une image de haute qualité. Il peut être nécessaire d'utiliser des éclairages spécifiques pour mettre en évidence certaines caractéristiques de l'objet ou pour éliminer les reflets indésirables. Les types courants d'éclairage utilisés en vision industrielle comprennent l'éclairage direct, l'éclairage diffus, l'éclairage structuré et l'éclairage en lumière polarisée.
+L’utilisation d’une back light à pour avantage de facilité la reconnaissance des contours (Edge learning).
+
+Calibration Robot-Caméra : La calibration robot-caméra ou calibration Hand-Eye est une étape clé dans la mise en place d'un système de vision industrielle. Elle permet de déterminer la relation entre le système de coordonnées de la caméra et le système de coordonnées du robot. Une fois cette relation connue, le robot peut utiliser les informations de la caméra pour localiser précisément les objets dans son espace de travail. La calibration robot-caméra peut être effectuée en utilisant des techniques de pointage ou des techniques basées sur des modèles.
+
+5.1.2 - Calibration Hand-Eye, dans les détails.
+J’ai décidé de développer cet aspect sur mon rapport pour rentre un peu dans la technique et aussi pour faire réaliser au lecteur ce qui se cache derrière toute ces bibliothèque et fonction constructeur. Les mathématiques et algorithme derrière cela sont complexe et témoigne de la technicité du sujet. On peut d’ailleurs récupérer dans
+
+
+     5.2 – Les test de caméra industriel, Cognex et SICK
+L'efficacité des systèmes automatisés de production repose largement sur l'exactitude de la localisation des pièces. À cet égard, deux solutions de vision industrielle se distinguent : la caméra Cognex Insight 7802 et la SICK Ploc2D. Chacune présente des atouts spécifiques, mais aussi des contraintes à prendre en compte.
+
+5.2.1 La caméra Cognex Insight 7802
+
+Elle se démarque par sa résolution et sa fréquence de capture, qui contribuent à un rendu de qualité. Cependant, le véritable atout de cette caméra réside dans sa précision. Offrant une exactitude de l'ordre du millimètre, elle dépasse la SICK Ploc2D, dont la précision est d'environ 3 mm
+
+Figure 49 : interface Insight Explorer
+L'Insight Explorer, le logiciel associé à la caméra Cognex, offre un large éventail de fonctionnalités pour la vision industrielle. 
+La détection de contours, la localisation avec angle et la calibration Hand-Eye font partie des fonctionnalités qui m’intéresse. Malgré son ancienneté avec 20 ans sur le marchées, il demeure un outil solide et les leaders pour les opérations de vision industrielle. En revanche, sa compatibilité avec les nouvelles technologies, telles que le Deep Learning, reste à déterminer.
+
+Figure 50 : Paramétrage du système depuis Insight et Calibration.
+5.2.2 La caméra SICK Ploc2D 
+
+Elle offre également des avantages significatifs. Sa performance est optimale dans des conditions d'éclairage constant et pour le dévracage de pièces simples. La communication via TCP et l'interface Web locale sur l'adresse IP par défaut facilitent grandement l'exploitation des informations. L'outil est capable de traiter les contours d'une pièce type en input, suggérant l'utilisation d'algorithmes ou de machine learning pour l'analyse.
+Le système de guidage robotisé PLOC 2D de SICK est un outil performant pour la localisation de pièces en 2D. Son installation et sa configuration requièrent plusieurs étapes cruciales pour assurer son bon fonctionnement.
+
+Installation : La première étape consiste à installer correctement le système PLOC 2D. Il est essentiel de suivre les instructions du fabricant pour garantir une installation correcte et sécurisée.
+
+Calibration : Cette étape permet au système d'acquérir un ensemble d'images de calibration pour estimer les paramètres de distorsion de l'objectif. Cette calibration précise est essentielle pour une identification précise des objets dans l'espace de travail du robot.
+
+Figure 51 : Calibration Ploc
+
+Alignement : Cette étape établit la pose de la caméra par rapport au système de coordonnées du robot. Une fois l'origine du cadre de référence détectée par le système de vision, on utilise la méthode des 3 points pour calculer le cadre de référence de vision par rapport au cadre de référence de base du robot.
+
+Figure 52 : Alignement du ploc
+
+Configuration de la tâche : Cette étape définit la forme que le système cherchera. C'est à ce niveau que l'on spécifie l'objet à détecter et à manipuler par le système robotisé.
+
+Figure 53 : Enseignement des contours sur le Ploc.
+
+Exécution de la tâche : Enfin, après avoir correctement configuré la tâche, le système PLOC 2D peut commencer à fonctionner. À ce stade, le système de vision est capable de repérer les objets définis et de transmettre les informations pertinentes au robot pour réaliser les actions requises.
+
+Toutefois, la SICK Ploc2D présente des contraintes à considérer. Le temps de réponse d'environ 1 seconde peut être un frein pour certaines applications nécessitant une réactivité plus grande. La récupération des images est complexe et nécessite l'utilisation de Filezilla, un logiciel de version antérieure à 2014. De plus, l'absence d'un objectif télécentrique nécessite une calibration spécifique et l'alignement reste à améliorer.
+Un autre aspect à considérer est le coût élevé de la SICK Ploc2D par rapport à ses concurrents, auquel s'ajoute le prix du temps de fonctionnement (Runtime). Cette situation invite à se questionner sur l'opportunité d'utiliser d'autres solutions comme MERLIC.
+
+5.2.3 Conclusion des tests.
+
+En définitive, la Cognex Insight 7802 et la SICK Ploc2D ont leurs propres avantages et limites. Le choix entre ces deux caméras doit donc être guidé par l'analyse de nos besoins spécifiques en matière de précision, de coût, d'intégration système et de potentialités futures, notamment en ce qui concerne le Deep Learning. Néanmoins la communication des caméra Cognex sont plus intuitive qu’avec SICK, je recommanderai tout de même Cognex pour leur efficacité et modularité. 
+     5.3 – Développement, MVtec et Deep learning 
+5.3.1 – Deep learning tool 
+Le Deep Learning, ou apprentissage profond, est une branche du Machine Learning qui utilise des réseaux de neurones à plusieurs couches. Ces réseaux de neurones imitent la façon dont un cerveau humain opère, permettant à l'ordinateur d'apprendre par lui-même à partir de données d'entrée. Pour la vision industrielle, le Deep Learning apporte des capacités d'analyse et de reconnaissance d'images de haute précision, surpassant souvent les techniques traditionnelles de vision par ordinateur.
+Le processus de Deep Learning implique généralement quatre étapes principales :
+
+La collecte de données : Il s'agit du processus de recueil d'images qui seront utilisées pour entraîner le modèle de deep learning. Dans le contexte de la vision industrielle, cela pourrait impliquer la capture d'images d'objets ou de pièces dans différents environnements d'éclairage, de différents angles, etc.
+
+L'étiquetage des données : Cette étape implique d'attribuer des "étiquettes" ou des "labels" à chaque image dans le jeu de données. Par exemple, si le système de vision est utilisé pour identifier différentes pièces dans une chaîne de montage, chaque image d'une pièce spécifique serait étiquetée avec le nom de cette pièce. La qualité des labels est cruciale pour la performance du système de deep learning. Bien fait, cela peut prendre énormément de temps, j’ai pris 2 jours personnellement.
+
+
+Figure 54: Labelling
+
+
+L'entraînement du modèle : Dans cette phase, le réseau de neurones est formé à l'aide des données étiquetées. Le modèle est exposé à chaque image et à son étiquette correspondante, et il ajuste progressivement ses poids et biais internes pour apprendre à associer correctement les images à leurs étiquettes.
+
+
+Figure 55: Entrainement du modèle.
+
+Le test et la validation : Une fois le modèle formé, il est testé sur un nouvel ensemble d'images qu'il n'a jamais vu auparavant pour évaluer sa performance. Les résultats de cette étape peuvent être utilisés pour affiner le modèle, en ajustant les paramètres du réseau de neurones pour améliorer sa précision.
+
+Figure 56: Validation.
+
+
+5.3.2 – Halcon
+HALCON, la boîte à outils standard pour toutes les tâches de vision par machine, est particulièrement adaptée pour le développement de solutions de traitement d'images. Il offre une architecture logicielle flexible, garantit un temps de mise sur le marché rapide et permet de réduire durablement les coûts. Avec ses plus de 2100 opérateurs, la bibliothèque de traitement d'images de HALCON est utilisée dans toutes les industries et offre des performances exceptionnelles dans tous les domaines du traitement d'images.
+
+En plus de ces fonctions, HALCON intègre également des technologies de pointe en matière de traitement d'images, comme la vision 3D et les méthodes d'apprentissage profond. Toutes ces fonctionnalités peuvent également être utilisées sur des systèmes embarqués, rendant HALCON idéal pour une utilisation dans des systèmes embarqués et personnalisés.
+
+Figure 57 : Inférence sur Halcon
+
+
+5.3.3 - Merlic
+Quant à MERLIC, il s'agit d'un logiciel tout-en-un pour la construction rapide d'applications de vision par machine sans programmation. Il est basé sur l'expertise étendue de MVtec acquise grâce à Halcon, cet outil a pour avantage principal la facilité de création d’interface utilisateur (WCF en local) avec des fonctions génériques éprouvé. L’autre avantage de cette interface est que l’on peut créer ses propre tool.
+
+Figure 58 : Front End Merlic
+De plus il existe la possibilité d’exporter des procédure Halcon, équivalent de classe en C#. En revanche, c’est une option qui coûte un prix supplémentaire. Cela peut valoir le coût uniquement si les applications sont multiples (+4 caméras). Néanmoins, Merlic semble être une superbe façon de procédé pour ce qui est de la vérification. 
+De fait, Merlic pourrais tout à fait être adapté au système actuellement mis en place chez Actemium Rouen Automation si des fonctionnalités sont ajoutée.
+
+Figure 59 : Interface de MERLIC (GUI)
+5.3.4 – Choix de la solution pour POC
+J'ai opté pour l'utilisation d'Halcon, un logiciel de vision industrielle plus complet, car il me permet d'intégrer directement la partie vision dans mon application web. Cela offre une flexibilité et une personnalisation plus grandes dans la gestion de la vision industrielle.
+La pièce choisie pour l'application de vision industrielle est la suivante : (Insérer l'image de la pièce ici). En dépit de son apparence simple, cette pièce présente plusieurs défis pour la vision industrielle :
+> La forme cylindrique de la pièce peut créer des reflets au centre. Ce phénomène peut rendre les contours de la pièce difficile à détecter pour les logiciels tels que SICK ou Cognex si la luminosité est variable.
+> La pièce possède une surface réfléchissante, ce qui peut perturber les capteurs de la caméra, en provoquant des variations d'intensité lumineuse ou des éblouissements.
+> L'extrémité de la pièce est transparente. Selon la luminosité, la partie supérieure peut être totalement invisible pour la caméra.
+
+A – Collecte et Étiquetage des Données
+Pour entraîner le système avec l'outil Deep Learning, une collecte de 300 images a été réalisée, dont 200 images dans des conditions d'éclairage sombre et 100 en surexposition. Toutes les images ont été prises avec un rétro-éclairage pour garantir la cohérence. L'étiquetage de ces images a constitué une tâche exigeante qui a nécessité trois jours complets de travail.
+
+Lors de l'étiquetage, un choix stratégique important a été fait pour tester les limites du Deep Learning : toutes les pièces, même celles à peine visibles pour l'œil humain, ont été étiquetées, mais si et seulement si elles étaient potentiellement saisissables par un robot. Cela signifie que l'objectif n'était pas uniquement la reconnaissance des pièces, mais également la sélection des pièces saisissables dès cette étape. Cela pourrait permettre de gagner du temps car il n'y aurait pas besoin de programmer un système pour éjecter les pièces non préhensibles s'il y a trop de pièces autour du point de prise.
+
+B – Choix des Paramètres d'Apprentissage
+Pour l'apprentissage, le modèle de neurones compact a été choisi. MVtec recommande ce modèle par défaut pour sa polyvalence et son efficacité. Cependant, il est envisageable d'utiliser un autre modèle de neurones si le cas d'application est plus complexe et nécessite un traitement plus élaboré.
+
+Concernant le nombre de canaux d'entrée, 1 seul canal a été sélectionné, l'image en entrée étant en noir et blanc. Contrairement aux images en couleurs qui nécessitent trois canaux pour les composantes rouge, vert et bleu (RGB), une image en niveaux de gris peut être représentée par un seul canal.
+
+Lorsqu'on fournit l'image en entrée du réseau de neurone, le format de l'image doit être un multiple de 64. Deux options s'offrent à nous :
+
+> Rogner l'image de sorte que ses dimensions soient des multiples de 64, avec pour inconvénient potentiel la perte d'une partie de l'image et la nécessité de positionner celle-ci de manière optimale dans le champ de vision. De plus, la taille de l'image peut devenir trop importante pour le réseau de neurones ou le matériel, ce qui peut entraîner des problèmes de performances.
+> Redimensionner l'image (downscaling – déforme l’image) afin qu'elle corresponde aux dimensions requises, malgré la perte de précision que cela peut engendrer. Idéalement, il serait préférable d'utiliser une caméra avec une résolution native plus faible, mais ce matériel n'était pas disponible. Ainsi, il est nécessaire de multiplier les coordonnées par le facteur de redimensionnement pour obtenir les coordonnées précises pour le robot.
+
+J’ai choisi de redimensionner l’image, mais dans ce cas l’approche plus efficace aurait été d'effectuer la calibration Hand Eye avec des coordonnées d'image déjà redimensionnées. Cela aurait évité d'avoir à effectuer ce calcul à chaque prise d'image dans mon cas.
+
+Pour des raisons expérimentales, j'ai réalisé des entraînements avec un nombre croissant d'échantillons pour observer l'impact sur la qualité des résultats. C'est une étape cruciale car la labellisation est un processus chronophage. Savoir à partir de quel point le résultat est satisfaisant peut permettre d'économiser du temps et donc de l'argent. Voici mes résultats :
+
+Insérer IMAGE EXCEL des Résultat.
+
+En somme, les images à faible résolution (LR, pour Low Resolution) de 256x256 pixels ont produit de meilleurs résultats que les images à haute résolution (HR, pour High Resolution) de 768x640 pixels. Il est donc avantageux d'utiliser des images LR en entrée car l'entraînement du modèle est plus rapide et la reconnaissance plus efficace. Néanmoins, le HR a l'avantage d'être moins déformé et offre plus de précision que le LR. Le choix entre les deux dépendra des besoins spécifiques de l'application. Dans un premier temps je vais opérer avec le modèle LR.
+
+C – Intégration du modèle dans l’application.
+En ce qui concerne l'intégration du modèle dans l'application, cela nécessite d'abord l'implémentation des fonctions depuis HDevelop, le logiciel conçu pour le développement avec la bibliothèque Halcon. Le flux de travail consiste à consulter les méthodes dans leurs documents accessibles en ligne, ou à explorer les exemples disponibles dans le logiciel. En dernier recours, si ces approches ne sont pas suffisantes, il est possible de contacter le service client, qui peut fournir un ingénieur ou un développeur pour une assistance spécifique.
+
+J'ai personnellement choisi de planifier une première session de programmation avec leur aide pour faciliter le début de mon travail. Pour ce qui est de l'intégration du modèle que j'ai créé avec l'outil Deep Learning, j'ai pu utiliser un exemple que j'ai adapté pour le rendre compatible avec mon programme. J'ai ainsi pu obtenir les résultats de mon inférence à partir d'images prises dans d'autres conditions que celles de mon entraînement.
+
+J'ai la possibilité de modifier le seuil de détection et je récupère en sortie un dictionnaire HDevelop, un hdict, contenant de nombreuses données utiles, dont les coordonnées X,Y et l'angle de la pièce. Ces données sont ensuite traitées, avec une mise à l'échelle des dimensions, et les coordonnées sont recalculées dans le repère du robot en utilisant la matrice homogène (cf. 5.0.1 partie 2). 
+Idéalement, ces fonctionnalités seraient intégrées directement dans l'application web ou dans une autre application installée à distance sur un contrôleur programmable (PLC) ou une carte de contrôle dédiée.
+INSERER CALIBRATION HANDEYE + QRCODE VIDEO LIENS
+
+Il ne reste plus qu'à communiquer ces informations à l'application web.
+En fin de compte, l'intégration du Deep Learning dans la vision industrielle n'est pas sans défis. La collecte et l'étiquetage des données peuvent être des processus longs et laborieux, il est même possible que le traitement des données pour l’entrainement devienne des métiers dans le futur. Savoir quoi donner à quel modèle et le formalisé pour qu’il réagisse au mieux n’est pas simple de demande beaucoup de temps. 
+
+6 – Conclusion synthèse sur le projet
+J'ai réussi à construire tous les éléments nécessaires pour la réalisation de mon Preuve de Concept (POC), que ce soit en robotique, en vision ou en programmation. La mise en œuvre de la partie vision m'a permis de retourner à la programmation et de modifier les protocoles de communication pour assurer la compatibilité avec les éléments de Halcon. Ainsi, j'ai pu réaliser une vidéo démontrant le système en action :
+
+INSERER VIDEO DU POC
+
+Il est à noter que l'application n'a pas été déployée sur un serveur. Si j'avais eu plus de temps, j'aurais pu le faire. Cependant, compte tenu des délais imposés par l'école et du fait que je n'ai eu que quatre mois pour réaliser ce projet, cela n'a pas été possible. De plus, je suis convaincu qu'il serait préférable de faire appel à un spécialiste en réseaux informatiques et en applications web pour assurer une implantation adéquate de mon application.
+
+En ce qui concerne le cycle de travail du robot, celui-ci n'est pas encore optimisé. Un roboticien expérimenté pourrait mettre en œuvre des fonctions de mouvement plus rapides pour la prise des pièces.
+
+INSERER TABLEAU DE TEMPS DE CYCLE DETAILLE
+
+Pour des cycles de 10 minutes, on observe cependant une perte de temps significative lors des cycles FlexiBowl. Ce temps pourrait être réduit avec une meilleure connaissance du produit FlexiBowl. Plusieurs surfaces interchangeables sont disponibles pour le plateau rotatif. L'objectif ici est d'améliorer les performances de ce cycle en ajustant les paramètres.
+
+D'un point de vue commercial, l'enjeu est d'expliquer que la capacité à modifier les paramètres du FlexiBowl et à accélérer les cycles représente la plus-value du produit.
+Les protocoles utilisés lors de ce POC ne sont pas non plus les plus couramment utilisés, il serait donc nécessaire de passer à des protocoles d'un niveau supérieur.
+
+Enfin, la question de l'intégration de ces fonctions dans une logique d'intégrateur doit être posée, c'est-à-dire qu'elles puissent être intégrées dans une chaîne de production plus grande avec des automates. Sans cela, il sera plus difficile de vendre ce produit à une gamme variée de clients.
+6.1 – Ma valeur ajoutée, Coût de R&D
+6.1.1 Coût généraux initiaux
+Au cours de ce projet, j'ai apporté une contribution significative grâce à ma formation en tant qu'ingénieur généraliste. J'ai pu utiliser mes connaissances diversifiées pour anticiper et résoudre efficacement les problèmes fonctionnels qui auraient pu constituer un défi pour un spécialiste plus ciblé développement web.
+
+Concernant le coût du projet, je rappelle qu’Aurore, la Responsable d’affaire l’a estimé à 130 000 €. Toutefois, en termes de dépenses de recherche et développement, aucune dépense supplémentaire n'a été engagée, à part mon salaire. En tant que stagiaire sous la convention collective de la métallurgie en France, je perçois un salaire net de 1 650 euros par mois. Par conséquent, sur une durée de six mois, mon salaire représente un coût total pour l'entreprise d'environ 15 000 euros.
+
+Les bénéfices attendus de ce projet sont multiples. D'une part, il permet l d'un nouveau produit, augmentant ainsi les ventes de FlexiBowl. D'autre part, il contribue au développement général de l'activité de l'entreprise.
+
+Néanmoins, en tant que stagiaire, il est important de souligner que le coût d'opportunité, c’est dire les pertes induites de mon « non-travail »sou en tache de production, n’est pas vraiment pertinent Cependant, ce projet pourrait avoir un impact positif à long terme, en stimulant l'innovation et le dynamisme de l'entreprise. De plus, en tant que potentiel employé après mon stage, je pourrais apporter une valeur ajoutée à l'équipe.
+
+6.1.2 Coût de fonctionnement
+A. Coût des licences :
+HALCON semble proposer une meilleure option en termes de coût des licences d'exécution. Les licences d'exécution de HALCON varient de 812$ à 2000$, pour l'intégralité des outils de bibliothèque 2D et 3D et des outils de classification. De plus, HALCON offre maintenant une licence de développeur basée sur un abonnement appelé "Progress" pour 3700$ par an.
+En comparaison, Cognex VisionPro propose une licence de développement USB temporaire de 12 mois pour 995$ par an, qui doit être renouvelée annuellement à 995$. Cependant, cette licence de développement ne peut pas être déployée comme licence d'exécution. Le coût d'une licence d'exécution de VisionPro est d'environ 1600$. 
+
+
+Actuellement, Cognex domine le marché malgré des performances techniques inférieures et des frais d'installation supplémentaires qui rendent leurs produits plus coûteux à grande échelle, leurs stratégies de marketing agressives et leur fiabilité suffisent à satisfaire leur client, qui rendent leurs produits plus coûteux à grande échelle. Leur interface utilisateur, qui n'exige pas de compétences en programmation, simplifie l'installation de leurs produits. C'est une des raisons pour lesquelles MVtec a développé Merlic, pour rivaliser sur ce front. 
+
+
+Figure 60: Coût de déploiement par caméra sur 1ans
+D’un point de vue modularité, il serait donc rentable d’avoir les compétences en interne pour manipuler du Halcon et le vendre ainsi, cela permettrait de réduire les couts des machines et donc d’avoir soit plus de marge soit plus part de marché. 
+Avec des machines à plusieurs caméra, cela fait grimper les cout cycle pour le client.
+
+Une solution optimale pourrait être l’intégration d’un programme utilisant le deep learning utilisant des caméras industrielles à bas coût et dont les support logiciel utilise des bibliothèques open source comme Open CV. Toute la question est de savoir à quel point cela est difficile à mettre en place et dans quelle mesure cette solution est industrialisable i.e. robuste.
+
+
+6.2 – La suite du projet
+6.2.1 – Création de programme de vision
+Maintenant que le projet et presque fonctionnel. Il me reste 1 mois entier de stage à poursuivre ce qui me laisse le temps de peaufiner les POC et déboguer l’application web.
+De plus nous voulions grandement approfondir la partie vision et test. Et enfin rendre mes travaux plus lisibles pour les internes à Actemium. C’est-à-dire faire des vidéos explicatifs du programme. Faire de commentaire. Faire des vidéos d’explication du système pour le club Robotique.
+Lorsqu'il s'agit de vision industrielle, le prochain pas consiste à développer et à compiler des programmes spécifiques pour les implanter sur une carte de circuit imprimé compacte ou un automate programmable industriel (PLC). Cela serait particulièrement nécessaire si les exigences de puissance se révèlent être élevées, comme ce pourrait être le cas avec l'utilisation d'un dispositif comme la Nvidia Jetson Nano, par exemple.
+
+Ainsi, deux programmes de vision distincts doivent être créés :
+   Le premier est destiné à la calibration de la lentille et à la calibration de la relation robot-caméra (aussi appelée "Hand-Eye Calibration"). Ce programme serait utilisé par le personnel de maintenance chaque fois qu'une recalibration serait nécessaire, par exemple en cas de changement de l'objectif de la caméra, de remplacement de la caméra elle-même, ou si le système a été désaligné. Cela pourrait notamment se produire si l'objectif de la caméra n'est plus parfaitement aligné avec le FlexiBowl.
+* Input : Image avec les cibles, paramètre basique optique,
+* Input Utilisateur : sélection des cibles dans l’ordre.
+* Output : Matrice Homogène pour la conversion des coordonnées caméra en coordonnées robot
+
+Figure 61: Programme de Hand-eye C#, (.NET Framework)
+Le second programme concerne la localisation des pièces. Il comprend tout le cœur de l'intelligence artificielle du système. En entrée, il reçoit la consigne de localisation ainsi que le nom du travail à effectuer pour la localisation. En sortie, il fournit le nombre de pièces détectées, accompagné des coordonnées de chaque pièce.
+Le format peut-être sans doute un application console. Nul besoin de prendre des inputs de l’utilisateur. Cette application peut être relativement ardu à mettre place. Ainsi c’est mon but de la faire fonctionner pour le mois de juillet. Si mi-juillet elle fonctionne, On pourra faire tourner le POC complet d’ici la dernière semaine de stage.
+
+6.2.2 – Pour les autres
+Pour assurer la continuité du projet, il est crucial que mon tuteur s'approprie pleinement mon application Web. Cela signifie qu'il doit comprendre en détail son fonctionnement et être capable de manipuler le code selon les besoins.
+
+Rappelons que l'objectif à moyen terme est de disposer d'une interface web modulaire, offrant des solutions de vision programmables ou entraînables. Il s'agit de pouvoir intégrer rapidement des solutions pour des tâches de "Pick & Place" complexes, en visant des délais d'environ un mois pour passer de la demande client à l'installation.
+
+Cette recherche de flexibilité se traduit par la création d'un environnement avec une architecture claire et établie, ainsi que par des documentations bien définies. Cette démarche vise à faciliter et accélérer toutes les étapes de modification, que ce soit pour le client ou pour nous. La clé ici est la rapidité d'exécution, sans compromettre la qualité de la solution mise en place.
+
+6.2.3 - Conclusion
+En guise de conclusion de ce rapport de stage, je tiens tout d'abord à souligner la richesse de cette expérience qui m'a permis de mettre en pratique mes compétences en ingénierie tout en explorant de nouvelles disciplines telles que la vision industrielle, la robotique et la programmation. Ce projet m'a permis de développer une application de reconnaissance et de manipulation d'objets basée sur l'apprentissage profond avec la bibliothèque Halcon, capable de gérer des objets complexes et variables en luminosité. Bien que le projet n'ait pas encore atteint son plein potentiel en termes de performances et de déploiement, je suis convaincu de la pertinence de l'approche adoptée et de sa capacité à apporter une valeur ajoutée significative à l'entreprise à long terme.
+
+Ensuite, je tiens à noter que ce projet a confirmé l'importance d'une approche interdisciplinaire en ingénierie. Les différentes dimensions du projet - de la vision industrielle à la robotique en passant par la programmation - ont nécessité une capacité à intégrer des connaissances provenant de différents domaines et à résoudre des problèmes complexes. De plus, l'aspect commercial du projet, lié à la valeur ajoutée que le POC pourrait apporter à l'entreprise, a également souligné l'importance de comprendre les implications économiques et stratégiques des choix techniques.
+
+Enfin, je suis particulièrement reconnaissant pour l'opportunité d'apprendre et de grandir au sein de l'équipe d'Actemium. La possibilité de travailler sur un projet qui a un impact direct sur l'entreprise, tout en bénéficiant du soutien et des conseils de mon tuteur et de mes collègues, a été une expérience précieuse. Ce stage a renforcé ma conviction que l'ingénierie est un domaine dynamique et en constante évolution qui offre d'énormes opportunités pour ceux qui sont prêts à relever des défis et à apprendre constamment. J'ai hâte de continuer à explorer ce domaine passionnant et à contribuer à l'innovation et au progrès technique.
+
+
+7 – Document de fin de rapport
+7.1 – Les annexes
+
+Figure 62: Deep learning tool, résultats bruts en fct. du nombre d'image(1).
+
+Figure 63: deep learning résultats brut (2)
+
+Figure 64: précision en fonction du nombre d'image d'entrainement.
+
+Figure 65: Deep learning tool - Choix du seuil de détection.
+
+
+FlexiArmMacro-tâche : 1.0
+Programmation robot.Version : 1.0Début : 30/05/22Durée : 46 joursDate de création : 07/06/2022Date de modification : N/AObjectifs et/ou attentes, rôle de la macro-tâche :
+Faire un cycle type robot pour qu’il réalise la tâche demandée et établir ses interactions avec le systèmeRésultats attendus :
+
+1.1 Prise en main des commandes du robot Epson
+
+1.2 Programmation d'un cycle type
+
+
+1.3 Implémentation flexible de la partie contrôle robot en cas d'utilisation d'autres modèlesDescription du travail à réaliser :
+Utilisation du logiciel RC4 de Epson et formation avec Wassim pour bien prendre en mains l’objet. Anthony pourra aussi m’assister si j’ai des questions.Documents ou moyens nécessaires pour commencer :
+PC, Logiciel RC4. Robot C4 6axes. Data sheet. Controller robot RC+7.0.
+FlexiArmMacro-tâche : 2.0
+Programmation IHMVersion : 1.0Début : 30/05/22Durée : 75 joursDate de création : 07/06/2022Date de modification : N/AObjectifs et/ou attentes, rôle de la macro-tâche :
+Programmer une interface IHM web pour que les utilisateurs puissent interagir avec la machine de manière flexible. Implémenter aussi des possibilités de configuration du système de vision avec l’ajout de recettes.Résultats attendus :
+
+2.1: Ossature de l'IHM, définition de ses interactions avec les périphériques.
+
+2.2: Architecture fonctionnel de L'IHM
+
+2.3 Développement web
+
+2.4: Amélioration du Frontend.
+
+2.5 Déploiement sur prototypeDescription du travail à réaliser :
+Programmation en C# d’un modèle de flexi-Arm IHM basique, qui ne suit pas encore l’ossature de l’IHM (voir annexes). Avec l’utilisation du modèle MvvM.Documents ou moyens nécessaires pour commencer :
+Ordinateur, visual studio, C#, auto – formation.
+
+FlexiArmMacro-tâche : 3.0
+Programmation VisionVersion : 1.0Début : 30/05/22Durée : 67 joursDate de création : 07/06/2022Date de modification : N/AObjectifs et/ou attentes, rôle de la macro-tâche :
+Choix de caméra adapté, programmation de la reconnaissance des pièces et envoi en sortie de la localisation des pièces reconnues, envoi d’erreur sinon.Résultats attendus :
+
+3.1: Etablissement des spécifications nécessaires du système de vision.
+
+3.2: Configuration de l'optique
+
+3.3: Programmation de l'algorithme de localisation de pièce.
+
+3.4: établissement de la communication avec le reste du système.Description du travail à réaliser :
+Réunions avec fournisseur, état de l’art. Choix. Programmation avec bibliothèque constructeur (Halcon de MVtech) ou Open source (Open CV, Keras)Documents ou moyens nécessaires pour commencer :
+PC, caméra. Lumière, Armoire électrique.
+FlexiArmMacro-tâche : 4.0
+Architecture systèmeVersion : 1.0Début : 30/05/22Durée : 22 joursDate de création : 07/06/2022Date de modification : N/AObjectifs et/ou attentes, rôle de la macro-tâche : 
+Réalisation de l’architecture système. Etant un projet régalement pluriethnique, il doit passer par une phase de choix d’architecture du système pour assure un système scalable et modifiable dans le futur. Auquel cas le prototype ne sera qu’un POC.Résultats attendus :
+
+4.1: Architecture système macroscopique.
+
+4.2: Architecture système microscopique.
+
+4.3: Définitions des Entrées/SortiesDescription du travail à réaliser :
+Autoformation sur les différents types d’architecture système. Notamment lors du choix d’architecture de l’IHM, (Mvvm Mvc…) qui peut influer sur la forme du code et donc augmenter ou non le travail de programmation s’il s’applique à une application non standard.Documents ou moyens nécessaires pour commencer :
+Web. Temps de travail.
+FlexiArmMacro-tâche : 5.0
+Divers
+Version : 1.0Début : 30/05/22Durée : 180 jours (durée du stage)Date de création : 07/06/2022Date de modification : N/AObjectifs et/ou attentes, rôle de la macro-tâche :
+Gestion de projet pour des rendus lisibles et de qualité. Création d’outil de suivi de projet efficace pour un projet qui fait plus de sens.Résultats attendus : 
+* Plan directeur
+* Etat de l'art Caméra
+* Etat de l'art reconnaissance vision
+* Etat de l'art Architecture IHM
+* Rapport de stageDescription du travail à réaliser :
+Création d’un planning macro Gantt. Mise en place de réunions projet toutes les deux semaines environ. Auto-formation pour la réalisation de tâches du projet.Documents ou moyens nécessaires pour commencer :
+Web sur Pc. Temps de travail.
+
+7.2 - La bibliographie
+La bibliographie indique tous les ouvrages et documents cités ou utilisés dans le rapport et référencés dans les notes de bas de page.
+
+7.3 - Le glossaire
+Le glossaire - facultatif mais vivement recommandé - est le répertoire des termes spécialisés utilisés dans le rapport pour lesquels, compte tenu de leur difficulté de compréhension, il est donné un synonyme connu ou une explication. Le développement des sigles est également indiqué dans le glossaire ou, à défaut, dans une liste des abréviations utilisées.
+
+MotsDéfinitionBol vibrantUn bol vibrant en industrie est un dispositif utilisé pour l'alimentation et l'orientation automatique de pièces. Il utilise des vibrations pour déplacer les pièces à travers un bol afin de les aligner et les positionner correctement pour une manipulation ultérieure.HTTPHTTP (HyperText Transfer Protocol) est un protocole de communication utilisé dans l'industrie pour échanger des données entre les systèmes informatiques. Il est largement utilisé pour accéder et transférer des informations via le World Wide Web.Matrice HomogèneUne matrice homogène est une représentation mathématique utilisée en industrie pour la calibration des coordonnées. Elle permet de définir la transformation géométrique entre différents systèmes de coordonnées, facilitant ainsi l'alignement et la précision des mesures.ROILe ROI (Return on Investment) en industrie représente le retour sur investissement, c'est-à-dire l'évaluation des bénéfices économiques ou financiers générés par un investissement par rapport à son coût initial.AMDECL'AMDEC est une méthode d'analyse des modes de défaillances, de leurs effets et de leurs criticités.Objectif télécentriqueUn objectif télécentrique est un objectif optique dont la pupille d’entrée ou de sortie est à l'infini. Cela signifie que les rayons principaux sont parallèles à l'axe optique devant ou derrière l'objectif, respectivement.
+
+
+
+Tanguy Lebret – Solution de distribution –                          Promotion 2023
+
+2
+
+
